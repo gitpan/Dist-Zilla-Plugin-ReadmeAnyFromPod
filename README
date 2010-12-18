@@ -1,9 +1,9 @@
 NAME
     Dist::Zilla::Plugin::ReadmeAnyFromPod - Automatically convert POD to a
-    README for Dist::Zilla
+    README in any format for Dist::Zilla
 
 VERSION
-    version 0.103521
+    version 0.103522
 
 SYNOPSIS
     In your dist.ini

@@ -9,7 +9,7 @@ use ExtUtils::MakeMaker 6.31;
 
 
 my %WriteMakefileArgs = (
-  'ABSTRACT' => 'Automatically convert POD to a README for Dist::Zilla',
+  'ABSTRACT' => 'Automatically convert POD to a README in any format for Dist::Zilla',
   'AUTHOR' => 'Ryan C. Thompson <rct@thompsonclan.org>',
   'BUILD_REQUIRES' => {
     'Carp' => '0',
@@ -44,7 +44,7 @@ my %WriteMakefileArgs = (
     'Pod::Simple::HTML' => '0',
     'Pod::Text' => '0'
   },
-  'VERSION' => '0.103521',
+  'VERSION' => '0.103522',
   'test' => {
     'TESTS' => 't/*.t'
   }

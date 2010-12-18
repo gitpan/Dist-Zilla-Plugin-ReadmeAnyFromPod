@@ -3,9 +3,9 @@ use warnings;
 
 package Dist::Zilla::Plugin::ReadmeAnyFromPod;
 BEGIN {
-  $Dist::Zilla::Plugin::ReadmeAnyFromPod::VERSION = '0.103521';
+  $Dist::Zilla::Plugin::ReadmeAnyFromPod::VERSION = '0.103522';
 }
-# ABSTRACT: Automatically convert POD to a README for Dist::Zilla
+# ABSTRACT: Automatically convert POD to a README in any format for Dist::Zilla
 
 use Moose;
 use Moose::Autobox;
@@ -173,11 +173,11 @@ __PACKAGE__->meta->make_immutable;
 
 =head1 NAME
 
-Dist::Zilla::Plugin::ReadmeAnyFromPod - Automatically convert POD to a README for Dist::Zilla
+Dist::Zilla::Plugin::ReadmeAnyFromPod - Automatically convert POD to a README in any format for Dist::Zilla
 
 =head1 VERSION
 
-version 0.103521
+version 0.103522
 
 =head1 SYNOPSIS
 

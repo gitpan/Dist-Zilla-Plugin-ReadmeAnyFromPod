@@ -1,5 +1,5 @@
 ---
-abstract: 'Automatically convert POD to a README for Dist::Zilla'
+abstract: 'Automatically convert POD to a README in any format for Dist::Zilla'
 author:
   - 'Ryan C. Thompson <rct@thompsonclan.org>'
 build_requires:
@@ -39,4 +39,4 @@ requires:
 resources:
   homepage: http://github.com/DarwinAwardWinner/Dist-Zilla-Plugin-ReadmeAnyFromPod/tree
   repository: git://github.com/DarwinAwardWinner/Dist-Zilla-Plugin-ReadmeAnyFromPod.git
-version: 0.103521
+version: 0.103522
