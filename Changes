@@ -1,5 +1,8 @@
 Revision history for Dist-Zilla-Plugin-ReadmeAnyFromPod
 
+0.103521  2010-12-18 00:01:23 EST5EDT
+    - Prune files with location = root
+
 0.103520  2010-12-17 22:51:34 EST5EDT
 
     - Added the ability to sepcify file name and format. Support for

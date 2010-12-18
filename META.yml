@@ -21,6 +21,7 @@ meta-spec:
 name: Dist-Zilla-Plugin-ReadmeAnyFromPod
 requires:
   Dist::Zilla::File::InMemory: 0
+  Dist::Zilla::Role::FilePruner: 0
   Dist::Zilla::Role::InstallTool: 0
   Encode: 0
   File::Slurp: 0
@@ -38,4 +39,4 @@ requires:
 resources:
   homepage: http://github.com/DarwinAwardWinner/Dist-Zilla-Plugin-ReadmeAnyFromPod/tree
   repository: git://github.com/DarwinAwardWinner/Dist-Zilla-Plugin-ReadmeAnyFromPod.git
-version: 0.103520
+version: 0.103521

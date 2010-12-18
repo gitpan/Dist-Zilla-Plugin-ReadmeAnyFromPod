@@ -3,7 +3,7 @@ NAME
     README for Dist::Zilla
 
 VERSION
-    version 0.103520
+    version 0.103521
 
 SYNOPSIS
     In your dist.ini
@@ -47,6 +47,11 @@ ATTRIBUTES
         built dist.
 
 METHODS
+  prune_files
+    Files with "location = root" must also be pruned, so that they don't
+    sneak into the *next* build by virtue of already existing in thr root
+    dir.
+
   setup_installer
     Adds the requested README file to the dist.
 

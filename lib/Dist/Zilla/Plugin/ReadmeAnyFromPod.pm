@@ -3,7 +3,7 @@ use warnings;
 
 package Dist::Zilla::Plugin::ReadmeAnyFromPod;
 BEGIN {
-  $Dist::Zilla::Plugin::ReadmeAnyFromPod::VERSION = '0.103520'; # TRIAL
+  $Dist::Zilla::Plugin::ReadmeAnyFromPod::VERSION = '0.103521';
 }
 # ABSTRACT: Automatically convert POD to a README for Dist::Zilla
 
@@ -15,6 +15,7 @@ use IO::Handle;
 use Encode qw( encode );
 
 with 'Dist::Zilla::Role::InstallTool';
+with 'Dist::Zilla::Role::FilePruner';
 
 my $types = {
     text => {
@@ -106,6 +107,19 @@ has location => (
 );
 
 
+sub prune_files {
+  my ($self) = @_;
+  if ($self->location eq 'root') {
+      for my $file ($self->zilla->files->flatten) {
+          next unless $file->name eq $self->filename;
+          $self->log_debug([ 'pruning %s', $file->name ]);
+          $self->zilla->prune_file($file);
+      }
+  }
+  return;
+}
+
+
 sub setup_installer {
     my ($self) = @_;
 
@@ -163,7 +177,7 @@ Dist::Zilla::Plugin::ReadmeAnyFromPod - Automatically convert POD to a README fo
 
 =head1 VERSION
 
-version 0.103520
+version 0.103521
 
 =head1 SYNOPSIS
 
@@ -217,6 +231,12 @@ built dist.
 =back
 
 =head1 METHODS
+
+=head2 prune_files
+
+Files with C<location = root> must also be pruned, so that they don't
+sneak into the I<next> build by virtue of already existing in thr root
+dir.
 
 =head2 setup_installer
 

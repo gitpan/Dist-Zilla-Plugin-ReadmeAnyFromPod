@@ -29,6 +29,7 @@ my %WriteMakefileArgs = (
   'NAME' => 'Dist::Zilla::Plugin::ReadmeAnyFromPod',
   'PREREQ_PM' => {
     'Dist::Zilla::File::InMemory' => '0',
+    'Dist::Zilla::Role::FilePruner' => '0',
     'Dist::Zilla::Role::InstallTool' => '0',
     'Encode' => '0',
     'File::Slurp' => '0',
@@ -43,7 +44,7 @@ my %WriteMakefileArgs = (
     'Pod::Simple::HTML' => '0',
     'Pod::Text' => '0'
   },
-  'VERSION' => '0.103520',
+  'VERSION' => '0.103521',
   'test' => {
     'TESTS' => 't/*.t'
   }
