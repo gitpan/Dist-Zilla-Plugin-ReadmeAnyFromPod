@@ -1,0 +1,41 @@
+---
+abstract: 'Automatically convert POD to a README for Dist::Zilla'
+author:
+  - 'Ryan C. Thompson <rct@thompsonclan.org>'
+build_requires:
+  Carp: 0
+  English: 0
+  File::Find: 0
+  File::Temp: 0
+  Scalar::Util: 0
+  Test::More: 0.94
+  perl: 5.004
+configure_requires:
+  ExtUtils::MakeMaker: 6.31
+dynamic_config: 0
+generated_by: 'Dist::Zilla version 4.102345, CPAN::Meta::Converter version 2.102400'
+license: perl
+meta-spec:
+  url: http://module-build.sourceforge.net/META-spec-v1.4.html
+  version: 1.4
+name: Dist-Zilla-Plugin-ReadmeAnyFromPod
+requires:
+  Dist::Zilla::File::InMemory: 0
+  Dist::Zilla::Role::InstallTool: 0
+  Encode: 0
+  File::Slurp: 0
+  IO::Handle: 0
+  IO::Scalar: 0
+  Moose: 0
+  Moose::Autobox: 0
+  Moose::Util::TypeConstraints: 0
+  MooseX::Has::Sugar: 0
+  Pod::Markdown: 0
+  Pod::Select: 0
+  Pod::Simple::HTML: 0
+  Pod::Text: 0
+  perl: 5.006
+resources:
+  homepage: http://github.com/DarwinAwardWinner/Dist-Zilla-Plugin-ReadmeAnyFromPod/tree
+  repository: git://github.com/DarwinAwardWinner/Dist-Zilla-Plugin-ReadmeAnyFromPod.git
+version: 0.103520
