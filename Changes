@@ -1,5 +1,9 @@
 Revision history for Dist-Zilla-Plugin-ReadmeAnyFromPod
 
+0.120040  2012-01-04 11:12:47 PST8PDT
+    - Now supports parsing options from given plugin name
+    - Added tests, which should all pass
+
 0.103522  2010-12-18 12:44:44 EST5EDT
     - Updated abstract to be more descriptive
 

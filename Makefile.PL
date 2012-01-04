@@ -2,51 +2,55 @@
 use strict;
 use warnings;
 
-BEGIN { require 5.006; }
+use 5.006;
 
-use ExtUtils::MakeMaker 6.31;
+use ExtUtils::MakeMaker 6.30;
 
 
 
 my %WriteMakefileArgs = (
-  'ABSTRACT' => 'Automatically convert POD to a README in any format for Dist::Zilla',
-  'AUTHOR' => 'Ryan C. Thompson <rct@thompsonclan.org>',
-  'BUILD_REQUIRES' => {
-    'Carp' => '0',
-    'English' => '0',
-    'File::Find' => '0',
-    'File::Temp' => '0',
-    'Scalar::Util' => '0',
-    'Test::More' => '0.94',
-    'perl' => '5.004'
+  "ABSTRACT" => "Automatically convert POD to a README in any format for Dist::Zilla",
+  "AUTHOR" => "Ryan C. Thompson <rct\@thompsonclan.org>",
+  "BUILD_REQUIRES" => {
+    "Carp" => 0,
+    "English" => 0,
+    "File::Find" => 0,
+    "File::Temp" => 0,
+    "Scalar::Util" => 0,
+    "Test::DZil" => 0,
+    "Test::More" => "0.94",
+    "Test::Most" => 0,
+    "autodie" => 0
   },
-  'CONFIGURE_REQUIRES' => {
-    'ExtUtils::MakeMaker' => '6.31'
+  "CONFIGURE_REQUIRES" => {
+    "ExtUtils::MakeMaker" => "6.30"
   },
-  'DISTNAME' => 'Dist-Zilla-Plugin-ReadmeAnyFromPod',
-  'EXE_FILES' => [],
-  'LICENSE' => 'perl',
-  'NAME' => 'Dist::Zilla::Plugin::ReadmeAnyFromPod',
-  'PREREQ_PM' => {
-    'Dist::Zilla::File::InMemory' => '0',
-    'Dist::Zilla::Role::FilePruner' => '0',
-    'Dist::Zilla::Role::InstallTool' => '0',
-    'Encode' => '0',
-    'File::Slurp' => '0',
-    'IO::Handle' => '0',
-    'IO::Scalar' => '0',
-    'Moose' => '0',
-    'Moose::Autobox' => '0',
-    'Moose::Util::TypeConstraints' => '0',
-    'MooseX::Has::Sugar' => '0',
-    'Pod::Markdown' => '0',
-    'Pod::Select' => '0',
-    'Pod::Simple::HTML' => '0',
-    'Pod::Text' => '0'
+  "DISTNAME" => "Dist-Zilla-Plugin-ReadmeAnyFromPod",
+  "EXE_FILES" => [],
+  "LICENSE" => "perl",
+  "NAME" => "Dist::Zilla::Plugin::ReadmeAnyFromPod",
+  "PREREQ_PM" => {
+    "Dist::Zilla::File::InMemory" => 0,
+    "Dist::Zilla::Role::FilePruner" => 0,
+    "Dist::Zilla::Role::InstallTool" => 0,
+    "Encode" => 0,
+    "File::Slurp" => 0,
+    "IO::Handle" => 0,
+    "IO::Scalar" => 0,
+    "Moose" => 0,
+    "Moose::Autobox" => 0,
+    "Moose::Util::TypeConstraints" => 0,
+    "MooseX::Has::Sugar" => 0,
+    "Pod::Markdown" => 0,
+    "Pod::Select" => 0,
+    "Pod::Simple::HTML" => 0,
+    "Pod::Text" => 0,
+    "strict" => 0,
+    "warnings" => 0
   },
-  'VERSION' => '0.103522',
-  'test' => {
-    'TESTS' => 't/*.t'
+  "VERSION" => "0.120040",
+  "test" => {
+    "TESTS" => "t/*.t"
   }
 );
 

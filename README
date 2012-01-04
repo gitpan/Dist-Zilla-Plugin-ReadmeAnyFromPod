@@ -3,7 +3,7 @@ NAME
     README in any format for Dist::Zilla
 
 VERSION
-    version 0.103522
+    version 0.120040
 
 SYNOPSIS
     In your dist.ini
@@ -19,11 +19,21 @@ SYNOPSIS
         filename = README.pod
         location = root
 
+        ; Using plugin name autodetection: Produces README.html in root
+        [ ReadmeAnyFromPod / HtmlInRoot ]
+
 DESCRIPTION
     Generates a README for your Dist::Zilla powered dist from its
     "main_module" in any of several formats. The generated README can be
     included in the build or created in the root of your dist for e.g.
     inclusion into version control.
+
+  PLUGIN NAME AUTODETECTION
+    If you give the plugin an appropriate name (a string after the slash) in
+    your dist.ini, it will can parse the "type" and "location" attributes
+    from it. The format is "Readme[TYPE]In[LOCATION]". The words "Readme"
+    and "In" are optional, and the whole name is case-insensitive. The
+    SYNOPSIS section above gives one example.
 
 ATTRIBUTES
   type
@@ -79,7 +89,7 @@ AUTHOR
     Ryan C. Thompson <rct@thompsonclan.org>
 
 COPYRIGHT AND LICENSE
-    This software is copyright (c) 2010 by Ryan C. Thompson.
+    This software is copyright (c) 2012 by Ryan C. Thompson.
 
     This is free software; you can redistribute it and/or modify it under
     the same terms as the Perl 5 programming language system itself.

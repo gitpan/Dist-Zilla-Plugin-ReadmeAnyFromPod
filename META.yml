@@ -8,12 +8,15 @@ build_requires:
   File::Find: 0
   File::Temp: 0
   Scalar::Util: 0
+  Test::DZil: 0
   Test::More: 0.94
+  Test::Most: 0
+  autodie: 0
   perl: 5.004
 configure_requires:
-  ExtUtils::MakeMaker: 6.31
+  ExtUtils::MakeMaker: 6.30
 dynamic_config: 0
-generated_by: 'Dist::Zilla version 4.102345, CPAN::Meta::Converter version 2.102400'
+generated_by: 'Dist::Zilla version 4.300006, CPAN::Meta::Converter version 2.113640'
 license: perl
 meta-spec:
   url: http://module-build.sourceforge.net/META-spec-v1.4.html
@@ -36,7 +39,9 @@ requires:
   Pod::Simple::HTML: 0
   Pod::Text: 0
   perl: 5.006
+  strict: 0
+  warnings: 0
 resources:
-  homepage: http://github.com/DarwinAwardWinner/Dist-Zilla-Plugin-ReadmeAnyFromPod/tree
-  repository: git://github.com/DarwinAwardWinner/Dist-Zilla-Plugin-ReadmeAnyFromPod.git
-version: 0.103522
+  homepage: https://github.com/DarwinAwardWinner/Dist-Zilla-Plugin-ReadmeAnyFromPod
+  repository: https://github.com/DarwinAwardWinner/Dist-Zilla-Plugin-ReadmeAnyFromPod.git
+version: 0.120040

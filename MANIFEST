@@ -5,6 +5,9 @@ MANIFEST
 META.yml
 Makefile.PL
 README
+corpus/README
+corpus/dist/DZT/lib/DZT/Sample.pm
+corpus/dist/DZT/t/basic.t
 dist.ini
 lib/Dist/Zilla/Plugin/ReadmeAnyFromPod.pm
 t/00-compile.t
@@ -17,4 +20,5 @@ t/release-pod-coverage.t
 t/release-pod-syntax.t
 t/release-portability.t
 t/release-unused-vars.t
+t/testreadme.t
 weaver.ini

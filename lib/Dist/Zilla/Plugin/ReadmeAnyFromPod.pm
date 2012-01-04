@@ -2,8 +2,8 @@ use strict;
 use warnings;
 
 package Dist::Zilla::Plugin::ReadmeAnyFromPod;
-BEGIN {
-  $Dist::Zilla::Plugin::ReadmeAnyFromPod::VERSION = '0.103522';
+{
+  $Dist::Zilla::Plugin::ReadmeAnyFromPod::VERSION = '0.120040';
 }
 # ABSTRACT: Automatically convert POD to a README in any format for Dist::Zilla
 
@@ -17,7 +17,7 @@ use Encode qw( encode );
 with 'Dist::Zilla::Role::InstallTool';
 with 'Dist::Zilla::Role::FilePruner';
 
-my $types = {
+our $_types = {
     text => {
         filename => 'README',
         parser => sub {
@@ -88,22 +88,22 @@ my $types = {
 
 has type => (
     ro, lazy,
-    isa        => enum([keys %$types]),
-    default    => sub { 'text' },
+    isa        => enum([keys %$_types]),
+    default    => sub { $_[0]->__from_name()->[0] || 'text' },
 );
 
 
 has filename => (
     ro, lazy,
     isa => 'Str',
-    default => sub { $types->{$_[0]->type}->{filename}; }
+    default => sub { $_types->{$_[0]->type}->{filename}; }
 );
 
 
 has location => (
     ro, lazy,
     isa => enum([qw(build root)]),
-    default => sub { 'build' }
+    default    => sub { $_[0]->__from_name()->[1] || 'build' },
 );
 
 
@@ -148,7 +148,7 @@ sub setup_installer {
         if (-e $file) {
             $self->zilla->log("Override $filename in root from [ReadmeAnyFromPod]");
         }
-        File::Slurp::write_file("$file", $content);
+        File::Slurp::write_file("$file", {binmode => ':raw'}, $content);
     }
     else {
         die "Unknown location specified";
@@ -161,8 +161,31 @@ sub setup_installer {
 sub get_readme_content {
     my ($self) = shift;
     my $mmcontent = $self->zilla->main_module->content;
-    my $parser = $types->{$self->type}->{parser};
+    my $parser = $_types->{$self->type}->{parser};
     my $readme_content = $parser->($mmcontent);
+}
+
+{
+    my %cache;
+    sub __from_name {
+        my ($self) = @_;
+        my $name = $self->plugin_name;
+
+        # Use cached values if available
+        if ($cache{$name}) {
+            return $cache{$name};
+        }
+
+        # qr{TYPE1|TYPE2|...}
+        my $type_regex = join('|', map {quotemeta} keys %$_types);
+        # qr{LOC1|LOC2|...}
+        my $location_regex = join('|', map {quotemeta} qw(build root));
+        # qr{(?:Readme)? (TYPE1|TYPE2|...) (?:In)? (LOC1|LOC2|...) }x
+        my $complete_regex = qr{ (?:Readme)? ($type_regex) (?:(?:In)? ($location_regex))? }ix;
+        my ($type, $location) = (lc $name) =~ m{\A $complete_regex \Z}ix;
+        $cache{$name} = [$type, $location];
+        return $cache{$name};
+    }
 }
 
 __PACKAGE__->meta->make_immutable;
@@ -177,7 +200,7 @@ Dist::Zilla::Plugin::ReadmeAnyFromPod - Automatically convert POD to a README in
 
 =head1 VERSION
 
-version 0.103522
+version 0.120040
 
 =head1 SYNOPSIS
 
@@ -194,12 +217,23 @@ In your F<dist.ini>
     filename = README.pod
     location = root
 
+    ; Using plugin name autodetection: Produces README.html in root
+    [ ReadmeAnyFromPod / HtmlInRoot ]
+
 =head1 DESCRIPTION
 
 Generates a README for your L<Dist::Zilla> powered dist from its
 C<main_module> in any of several formats. The generated README can be
 included in the build or created in the root of your dist for e.g.
 inclusion into version control.
+
+=head2 PLUGIN NAME AUTODETECTION
+
+If you give the plugin an appropriate name (a string after the slash)
+in your dist.ini, it will can parse the C<type> and C<location>
+attributes from it. The format is "Readme[TYPE]In[LOCATION]". The
+words "Readme" and "In" are optional, and the whole name is
+case-insensitive. The SYNOPSIS section above gives one example.
 
 =head1 ATTRIBUTES
 
@@ -279,7 +313,7 @@ Ryan C. Thompson <rct@thompsonclan.org>
 
 =head1 COPYRIGHT AND LICENSE
 
-This software is copyright (c) 2010 by Ryan C. Thompson.
+This software is copyright (c) 2012 by Ryan C. Thompson.
 
 This is free software; you can redistribute it and/or modify it under
 the same terms as the Perl 5 programming language system itself.
