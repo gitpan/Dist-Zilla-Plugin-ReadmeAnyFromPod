@@ -5,6 +5,7 @@ MANIFEST
 META.yml
 Makefile.PL
 README
+README.pod
 corpus/README
 corpus/dist/DZT/lib/DZT/Sample.pm
 corpus/dist/DZT/t/basic.t

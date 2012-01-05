@@ -3,7 +3,7 @@ use warnings;
 
 package Dist::Zilla::Plugin::ReadmeAnyFromPod;
 {
-  $Dist::Zilla::Plugin::ReadmeAnyFromPod::VERSION = '0.120040';
+  $Dist::Zilla::Plugin::ReadmeAnyFromPod::VERSION = '0.120051';
 }
 # ABSTRACT: Automatically convert POD to a README in any format for Dist::Zilla
 
@@ -103,7 +103,7 @@ has filename => (
 has location => (
     ro, lazy,
     isa => enum([qw(build root)]),
-    default    => sub { $_[0]->__from_name()->[1] || 'build' },
+    default => sub { $_[0]->__from_name()->[1] || 'build' },
 );
 
 
@@ -200,7 +200,7 @@ Dist::Zilla::Plugin::ReadmeAnyFromPod - Automatically convert POD to a README in
 
 =head1 VERSION
 
-version 0.120040
+version 0.120051
 
 =head1 SYNOPSIS
 
@@ -269,7 +269,7 @@ built dist.
 =head2 prune_files
 
 Files with C<location = root> must also be pruned, so that they don't
-sneak into the I<next> build by virtue of already existing in thr root
+sneak into the I<next> build by virtue of already existing in the root
 dir.
 
 =head2 setup_installer

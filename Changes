@@ -1,5 +1,8 @@
 Revision history for Dist-Zilla-Plugin-ReadmeAnyFromPod
 
+0.120051  2012-01-04 23:42:29 PST8PDT
+    - Prevent modules in corpus directory from being indexed.
+
 0.120040  2012-01-04 11:12:47 PST8PDT
     - Now supports parsing options from given plugin name
     - Added tests, which should all pass
