@@ -56,21 +56,24 @@ my %tests = (
         [ qr/__[^\s_]+__/, "Markdown bold formatting" ],
         [ qr/[^_]_[^\s_]+_[^_]/, "Markdown italic formatting" ],
     ],
+    never => [
+        [ qr/\r/, "Carriage return", ],
+    ]
 );
 
 my @possible_types = keys %$Dist::Zilla::Plugin::ReadmeAnyFromPod::_types;
 
+my $expected_number_of_tests = scalar(@possible_types) * (2 + scalar(map { @$_ } values %tests)) * 2;
+plan tests => $expected_number_of_tests;
+
 for my $tested_type (@possible_types) {
-    my @other_types = grep { $_ ne $tested_type } @possible_types;
+    my @other_types = grep { $_ ne $tested_type } keys %tests;
     my $filename = type_filename($tested_type);
 
     my %config = (
         explicit => config_explicit($tested_type),
         implicit => config_implicit($tested_type),
     );
-
-    my %ini = map { $_ => simple_ini('GatherDir', $config{$_}) } keys %config;
-    ### %ini
 
     my %tzil = map {
         $_ => Builder->from_config(

@@ -3,7 +3,7 @@ NAME
     README in any format for Dist::Zilla
 
 VERSION
-    version 0.120051
+    version 0.120050
 
 SYNOPSIS
     In your dist.ini
