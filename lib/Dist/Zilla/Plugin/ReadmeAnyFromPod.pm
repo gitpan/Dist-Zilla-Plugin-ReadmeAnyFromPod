@@ -3,7 +3,7 @@ use warnings;
 
 package Dist::Zilla::Plugin::ReadmeAnyFromPod;
 {
-  $Dist::Zilla::Plugin::ReadmeAnyFromPod::VERSION = '0.120052';
+  $Dist::Zilla::Plugin::ReadmeAnyFromPod::VERSION = '0.120053';
 }
 # ABSTRACT: Automatically convert POD to a README in any format for Dist::Zilla
 
@@ -182,7 +182,7 @@ sub get_readme_content {
         my $location_regex = join('|', map {quotemeta} qw(build root));
         # qr{(?:Readme)? (TYPE1|TYPE2|...) (?:In)? (LOC1|LOC2|...) }x
         my $complete_regex = qr{ (?:Readme)? ($type_regex) (?:(?:In)? ($location_regex))? }ix;
-        my ($type, $location) = (lc $name) =~ m{\A $complete_regex \Z}ix;
+        my ($type, $location) = (lc $name) =~ m{(?:\A|/) \s* $complete_regex \s* \Z}ix;
         $cache{$name} = [$type, $location];
         return $cache{$name};
     }
@@ -200,7 +200,7 @@ Dist::Zilla::Plugin::ReadmeAnyFromPod - Automatically convert POD to a README in
 
 =head1 VERSION
 
-version 0.120052
+version 0.120053
 
 =head1 SYNOPSIS
 

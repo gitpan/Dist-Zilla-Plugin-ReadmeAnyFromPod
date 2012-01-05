@@ -34,7 +34,7 @@ sub config_implicit {
     my $type = lc shift;
     my $tc_type = ucfirst $type;
     return 0 unless type_filename($type);
-    return [ 'ReadmeAnyFromPod', "${tc_type}InBuild"];
+    return [ 'ReadmeAnyFromPod', "Readme${tc_type}InBuild"];
 }
 
 my %tests = (
