@@ -47,4 +47,4 @@ requires:
 resources:
   homepage: https://github.com/DarwinAwardWinner/Dist-Zilla-Plugin-ReadmeAnyFromPod
   repository: https://github.com/DarwinAwardWinner/Dist-Zilla-Plugin-ReadmeAnyFromPod.git
-version: 0.120050
+version: 0.120052

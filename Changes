@@ -1,6 +1,6 @@
 Revision history for Dist-Zilla-Plugin-ReadmeAnyFromPod
 
-0.120050  2012-01-05 09:48:16 PST8PDT
+0.120052  2012-01-05 11:07:05 PST8PDT
     - Added a test to make sure \r characters never appear in any
       output.
 

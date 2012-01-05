@@ -3,7 +3,7 @@ use warnings;
 
 package Dist::Zilla::Plugin::ReadmeAnyFromPod;
 {
-  $Dist::Zilla::Plugin::ReadmeAnyFromPod::VERSION = '0.120050';
+  $Dist::Zilla::Plugin::ReadmeAnyFromPod::VERSION = '0.120052';
 }
 # ABSTRACT: Automatically convert POD to a README in any format for Dist::Zilla
 
@@ -200,7 +200,7 @@ Dist::Zilla::Plugin::ReadmeAnyFromPod - Automatically convert POD to a README in
 
 =head1 VERSION
 
-version 0.120050
+version 0.120052
 
 =head1 SYNOPSIS
 
