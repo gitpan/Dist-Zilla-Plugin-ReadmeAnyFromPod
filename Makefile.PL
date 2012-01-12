@@ -2,7 +2,7 @@
 use strict;
 use warnings;
 
-use 5.006;
+use 5.008;
 
 use ExtUtils::MakeMaker 6.30;
 
@@ -13,6 +13,7 @@ my %WriteMakefileArgs = (
   "AUTHOR" => "Ryan C. Thompson <rct\@thompsonclan.org>",
   "BUILD_REQUIRES" => {
     "Carp" => 0,
+    "Dist::Zilla::Role::PluginBundle::Easy" => 0,
     "English" => 0,
     "File::Find" => 0,
     "File::Temp" => 0,
@@ -20,7 +21,8 @@ my %WriteMakefileArgs = (
     "Test::DZil" => 0,
     "Test::More" => "0.94",
     "Test::Most" => 0,
-    "autodie" => 0
+    "autodie" => 0,
+    "utf8" => 0
   },
   "CONFIGURE_REQUIRES" => {
     "ExtUtils::MakeMaker" => "6.30"
@@ -48,7 +50,7 @@ my %WriteMakefileArgs = (
     "strict" => 0,
     "warnings" => 0
   },
-  "VERSION" => "0.120053",
+  "VERSION" => "0.120120",
   "test" => {
     "TESTS" => "t/*.t"
   }

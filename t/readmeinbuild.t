@@ -7,10 +7,6 @@ use warnings;
 use autodie;
 use Test::DZil;
 
-use Moose::Autobox;
-
-#use Devel::Comments;
-
 use Dist::Zilla::Plugin::ReadmeAnyFromPod;
 
 # Pull out types from the plugin to get default filenames
@@ -64,7 +60,6 @@ my %tests = (
 my @possible_types = keys %$Dist::Zilla::Plugin::ReadmeAnyFromPod::_types;
 
 my $expected_number_of_tests = scalar(@possible_types) * (2 + scalar(map { @$_ } values %tests)) * 2;
-plan tests => $expected_number_of_tests;
 
 for my $tested_type (@possible_types) {
     my @other_types = grep { $_ ne $tested_type } keys %tests;
@@ -113,4 +108,4 @@ for my $tested_type (@possible_types) {
     }
 }
 
-done_testing;
+done_testing($expected_number_of_tests);

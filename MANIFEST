@@ -14,11 +14,15 @@ t/00-compile.t
 t/00-load.t
 t/000-report-versions.t
 t/author-critic.t
+t/insidebundle.t
+t/lib/Dist/Zilla/PluginBundle/ReadmeAnyFromPod.pm
+t/multi-readme.t
+t/readmeinbuild.t
+t/readmeinroot.t
 t/release-has-version.t
 t/release-kwalitee.t
 t/release-pod-coverage.t
 t/release-pod-syntax.t
 t/release-portability.t
 t/release-unused-vars.t
-t/testreadme.t
 weaver.ini

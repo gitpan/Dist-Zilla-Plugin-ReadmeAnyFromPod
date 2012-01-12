@@ -3,7 +3,7 @@ use warnings;
 
 package Dist::Zilla::Plugin::ReadmeAnyFromPod;
 {
-  $Dist::Zilla::Plugin::ReadmeAnyFromPod::VERSION = '0.120053';
+  $Dist::Zilla::Plugin::ReadmeAnyFromPod::VERSION = '0.120120';
 }
 # ABSTRACT: Automatically convert POD to a README in any format for Dist::Zilla
 
@@ -14,6 +14,8 @@ use Moose::Util::TypeConstraints qw(enum);
 use IO::Handle;
 use Encode qw( encode );
 
+# This cannot be the FileGatherer role, because it needs to be called
+# after file munging to get the fully-munged POD.
 with 'Dist::Zilla::Role::InstallTool';
 with 'Dist::Zilla::Role::FilePruner';
 
@@ -133,7 +135,7 @@ sub setup_installer {
     if ( $self->location eq 'build' ) {
         if ( $file ) {
             $file->content( $content );
-            $self->zilla->log("Override $filename in build from [ReadmeAnyFromPod]");
+            $self->log("Override $filename in build");
         } else {
             $file = Dist::Zilla::File::InMemory->new({
                 content => $content,
@@ -146,7 +148,7 @@ sub setup_installer {
         require File::Slurp;
         my $file = $self->zilla->root->file($filename);
         if (-e $file) {
-            $self->zilla->log("Override $filename in root from [ReadmeAnyFromPod]");
+            $self->log("Override $filename in root");
         }
         File::Slurp::write_file("$file", {binmode => ':raw'}, $content);
     }
@@ -200,7 +202,7 @@ Dist::Zilla::Plugin::ReadmeAnyFromPod - Automatically convert POD to a README in
 
 =head1 VERSION
 
-version 0.120053
+version 0.120120
 
 =head1 SYNOPSIS
 
