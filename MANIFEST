@@ -6,6 +6,7 @@ META.yml
 Makefile.PL
 README
 corpus/README
+corpus/dist/DZT/bin/sample
 corpus/dist/DZT/lib/DZT/Sample.pm
 corpus/dist/DZT/t/basic.t
 dist.ini
@@ -17,6 +18,7 @@ t/author-critic.t
 t/insidebundle.t
 t/lib/Dist/Zilla/PluginBundle/ReadmeAnyFromPod.pm
 t/multi-readme.t
+t/otherpath.t
 t/readmeinbuild.t
 t/readmeinroot.t
 t/release-has-version.t

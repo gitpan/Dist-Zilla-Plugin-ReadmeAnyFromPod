@@ -3,7 +3,7 @@ NAME
     README in any format for Dist::Zilla
 
 VERSION
-    version 0.120120
+    version 0.131500
 
 SYNOPSIS
     In your dist.ini
@@ -43,6 +43,10 @@ ATTRIBUTES
   filename
     The file name of the README file to produce. The default depends on the
     selected format.
+
+  source_filename
+    The file from which to extract POD for the content of the README. The
+    default is the file of the main module of the dist.
 
   location
     Where to put the generated README file. Choices are:
@@ -89,7 +93,7 @@ AUTHOR
     Ryan C. Thompson <rct@thompsonclan.org>
 
 COPYRIGHT AND LICENSE
-    This software is copyright (c) 2012 by Ryan C. Thompson.
+    This software is copyright (c) 2013 by Ryan C. Thompson.
 
     This is free software; you can redistribute it and/or modify it under
     the same terms as the Perl 5 programming language system itself.

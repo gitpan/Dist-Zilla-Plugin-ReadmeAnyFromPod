@@ -3,7 +3,7 @@ use warnings;
 
 package Dist::Zilla::Plugin::ReadmeAnyFromPod;
 {
-  $Dist::Zilla::Plugin::ReadmeAnyFromPod::VERSION = '0.120120';
+  $Dist::Zilla::Plugin::ReadmeAnyFromPod::VERSION = '0.131500';
 }
 # ABSTRACT: Automatically convert POD to a README in any format for Dist::Zilla
 
@@ -102,6 +102,13 @@ has filename => (
 );
 
 
+has source_filename => (
+    ro, lazy,
+    isa => 'Str',
+    default => sub { shift->zilla->main_module->name; },
+);
+
+
 has location => (
     ro, lazy,
     isa => enum([qw(build root)]),
@@ -159,10 +166,18 @@ sub setup_installer {
     return;
 }
 
+sub _file_from_filename {
+    my ($self, $filename) = @_;
+    for my $file ($self->zilla->files->flatten) {
+        return $file if $file->name eq $filename;
+    }
+    return; # let moose throw exception if nothing found
+}
+
 
 sub get_readme_content {
     my ($self) = shift;
-    my $mmcontent = $self->zilla->main_module->content;
+    my $mmcontent = $self->_file_from_filename($self->source_filename)->content;
     my $parser = $_types->{$self->type}->{parser};
     my $readme_content = $parser->($mmcontent);
 }
@@ -192,7 +207,7 @@ sub get_readme_content {
 
 __PACKAGE__->meta->make_immutable;
 
-
+__END__
 
 =pod
 
@@ -202,7 +217,7 @@ Dist::Zilla::Plugin::ReadmeAnyFromPod - Automatically convert POD to a README in
 
 =head1 VERSION
 
-version 0.120120
+version 0.131500
 
 =head1 SYNOPSIS
 
@@ -246,6 +261,11 @@ The file format for the readme. Supported types are "text", "markdown", "pod", a
 =head2 filename
 
 The file name of the README file to produce. The default depends on the selected format.
+
+=head2 source_filename
+
+The file from which to extract POD for the content of the README.
+The default is the file of the main module of the dist.
 
 =head2 location
 
@@ -315,7 +335,7 @@ Ryan C. Thompson <rct@thompsonclan.org>
 
 =head1 COPYRIGHT AND LICENSE
 
-This software is copyright (c) 2012 by Ryan C. Thompson.
+This software is copyright (c) 2013 by Ryan C. Thompson.
 
 This is free software; you can redistribute it and/or modify it under
 the same terms as the Perl 5 programming language system itself.
@@ -344,7 +364,3 @@ SUCH HOLDER OR OTHER PARTY HAS BEEN ADVISED OF THE POSSIBILITY OF SUCH
 DAMAGES.
 
 =cut
-
-
-__END__
-
