@@ -22,3 +22,7 @@ This is the description in B<bold>.
 =head1 FUNCTIONS
 
 Some functions are listed here
+
+=head1 ACKNOWLEDGMENTS
+
+Here's to you, Dagfinn Ilmari Mannsåker, my unicode canary

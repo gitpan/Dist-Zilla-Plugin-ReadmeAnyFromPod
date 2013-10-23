@@ -38,7 +38,7 @@ my %tests = (
         [ qr/^SYNOPSIS$/m, "plaintext header" ],
     ],
     pod => [
-        [ qr/^=head1\s+SYNOPSIS/, "POD header" ],
+        [ qr/^=head1\s+SYNOPSIS/m, "POD header" ],
         [ qr/B<.*>/, "POD bold formatting" ],
         [ qr/I<.*>/, "POD italic formatting" ],
     ],

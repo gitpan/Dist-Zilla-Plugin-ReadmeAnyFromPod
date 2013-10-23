@@ -5,19 +5,23 @@ author:
 build_requires:
   Carp: 0
   Dist::Zilla::Role::PluginBundle::Easy: 0
-  File::Find: 0
-  File::Temp: 0
+  File::Slurp: 0
+  File::Spec: 0
+  IO::Handle: 0
+  IPC::Open3: 0
+  Path::Tiny: 0
   Scalar::Util: 0
   Test::DZil: 0
   Test::More: 0.94
   Test::Most: 0
   autodie: 0
+  lib: 0
   perl: 5.004
   utf8: 0
 configure_requires:
   ExtUtils::MakeMaker: 6.30
 dynamic_config: 0
-generated_by: 'Dist::Zilla version 4.300034, CPAN::Meta::Converter version 2.130880'
+generated_by: 'Dist::Zilla version 5.000, CPAN::Meta::Converter version 2.132830'
 license: perl
 meta-spec:
   url: http://module-build.sourceforge.net/META-spec-v1.4.html
@@ -28,24 +32,25 @@ no_index:
     - corpus
 requires:
   Dist::Zilla::File::InMemory: 0
-  Dist::Zilla::Role::FilePruner: 0
-  Dist::Zilla::Role::InstallTool: 0
+  Dist::Zilla::Role::FilePruner: 5
+  Dist::Zilla::Role::InstallTool: 5
   Encode: 0
-  File::Slurp: 0
   IO::Handle: 0
   IO::Scalar: 0
+  List::Util: 0
   Moose: 0
   Moose::Autobox: 0
   Moose::Util::TypeConstraints: 0
   MooseX::Has::Sugar: 0
+  PPI::Document: 0
+  PPI::Token::Pod: 0
   Pod::Markdown: 0
-  Pod::Select: 0
   Pod::Simple::HTML: 0
-  Pod::Text: 0
+  Pod::Simple::Text: 0
   perl: 5.008
   strict: 0
   warnings: 0
 resources:
   homepage: https://github.com/DarwinAwardWinner/Dist-Zilla-Plugin-ReadmeAnyFromPod
   repository: https://github.com/DarwinAwardWinner/Dist-Zilla-Plugin-ReadmeAnyFromPod.git
-version: 0.131500
+version: 0.132962

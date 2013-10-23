@@ -1,7 +1,11 @@
 Revision history for Dist-Zilla-Plugin-ReadmeAnyFromPod
 
+0.132962  2013-10-23 15:45:36 America/Los_Angeles
+    - Now compatible *only* with Dist::Zilla version 5 and up
+    - Add test for excluding root README files from build
+
 0.131500  2013-05-30 02:03:44 America/Los_Angeles
-    - Allow source POD to come fro somewhere other than the main
+    - Allow source POD to come from somewhere other than the main
       module (contributed by Hercynium)
 
 0.120120  2012-01-11 22:41:25 PST8PDT

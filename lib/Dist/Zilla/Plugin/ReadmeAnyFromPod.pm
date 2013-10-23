@@ -3,85 +3,72 @@ use warnings;
 
 package Dist::Zilla::Plugin::ReadmeAnyFromPod;
 {
-  $Dist::Zilla::Plugin::ReadmeAnyFromPod::VERSION = '0.131500';
+  $Dist::Zilla::Plugin::ReadmeAnyFromPod::VERSION = '0.132962'; # TRIAL
 }
 # ABSTRACT: Automatically convert POD to a README in any format for Dist::Zilla
 
-use Moose;
-use Moose::Autobox;
-use MooseX::Has::Sugar;
-use Moose::Util::TypeConstraints qw(enum);
-use IO::Handle;
 use Encode qw( encode );
+use IO::Handle;
+use List::Util qw( reduce );
+use Moose::Autobox;
+use Moose::Util::TypeConstraints qw(enum);
+use Moose;
+use MooseX::Has::Sugar;
+use PPI::Document;
+use PPI::Token::Pod;
 
 # This cannot be the FileGatherer role, because it needs to be called
 # after file munging to get the fully-munged POD.
-with 'Dist::Zilla::Role::InstallTool';
-with 'Dist::Zilla::Role::FilePruner';
+with 'Dist::Zilla::Role::InstallTool' => { -version => 5 };
+with 'Dist::Zilla::Role::FilePruner' => { -version => 5 };
 
+# TODO: Should these be separate modules?
 our $_types = {
+    pod => {
+        filename => 'README.pod',
+        parser => sub {
+            return $_[0];
+        },
+    },
     text => {
         filename => 'README',
         parser => sub {
-            my $mmcontent = $_[0];
+            my $pod = $_[0];
 
-            require Pod::Text;
-            my $parser = Pod::Text->new();
-            $parser->output_string( \my $input_content );
-            $parser->parse_string_document( $mmcontent );
-
-            my $content;
-            if( defined $parser->{encoding} ){
-                $content = encode( $parser->{encoding} , $input_content );
-            } else {
-                $content = $input_content;
-            }
+            require Pod::Simple::Text;
+            my $parser = Pod::Simple::Text->new;
+            $parser->output_string( \my $content );
+            $parser->parse_characters(1);
+            $parser->parse_string_document($pod);
             return $content;
         },
     },
     markdown => {
         filename => 'README.mkdn',
         parser => sub {
-            my $mmcontent = $_[0];
+            my $pod = $_[0];
 
             require Pod::Markdown;
             my $parser = Pod::Markdown->new();
 
             require IO::Scalar;
-            my $input_handle = IO::Scalar->new(\$mmcontent);
+            my $input_handle = IO::Scalar->new(\$pod);
 
             $parser->parse_from_filehandle($input_handle);
             my $content = $parser->as_markdown();
             return $content;
         },
     },
-    pod => {
-        filename => 'README.pod',
-        parser => sub {
-            my $mmcontent = $_[0];
-
-            require Pod::Select;
-            require IO::Scalar;
-            my $input_handle = IO::Scalar->new(\$mmcontent);
-            my $content = '';
-            my $output_handle = IO::Scalar->new(\$content);
-
-            my $parser = Pod::Select->new();
-            $parser->parse_from_filehandle($input_handle, $output_handle);
-
-            return $content;
-        },
-    },
     html => {
         filename => 'README.html',
         parser => sub {
-            my $mmcontent = $_[0];
+            my $pod = $_[0];
 
             require Pod::Simple::HTML;
             my $parser = Pod::Simple::HTML->new;
-            my $content;
-            $parser->output_string( \$content );
-            $parser->parse_string_document($mmcontent);
+            $parser->output_string( \my $content );
+            $parser->parse_characters(1);
+            $parser->parse_string_document($pod);
             return $content;
         }
     }
@@ -117,52 +104,51 @@ has location => (
 
 
 sub prune_files {
-  my ($self) = @_;
-  if ($self->location eq 'root') {
-      for my $file ($self->zilla->files->flatten) {
-          next unless $file->name eq $self->filename;
-          $self->log_debug([ 'pruning %s', $file->name ]);
-          $self->zilla->prune_file($file);
-      }
-  }
-  return;
+    my ($self) = @_;
+    if ($self->location eq 'root') {
+        for my $file ($self->zilla->files->flatten) {
+            next unless $file->name eq $self->filename;
+            $self->log_debug([ 'pruning %s', $file->name ]);
+            $self->zilla->prune_file($file);
+        }
+    }
+    return;
 }
 
 
 sub setup_installer {
     my ($self) = @_;
 
-    require Dist::Zilla::File::InMemory;
-
     my $content = $self->get_readme_content();
 
     my $filename = $self->filename;
-    my $file = $self->zilla->files->grep( sub { $_->name eq $filename } )->head;
 
     if ( $self->location eq 'build' ) {
+        require Dist::Zilla::File::InMemory;
+        my $file = $self->zilla->files->grep( sub { $_->name eq $filename } )->head;
         if ( $file ) {
-            $file->content( $content );
             $self->log("Override $filename in build");
-        } else {
-            $file = Dist::Zilla::File::InMemory->new({
-                content => $content,
-                name    => $filename,
-            });
-            $self->add_file($file);
+            $self->zilla->prune_file($file);
         }
+        my $newfile = Dist::Zilla::File::InMemory->new({
+            name    => $filename,
+            content => $content,
+            encoding => $self->_get_source_encoding(),
+        });
+        $self->add_file($newfile);
     }
     elsif ( $self->location eq 'root' ) {
-        require File::Slurp;
         my $file = $self->zilla->root->file($filename);
         if (-e $file) {
             $self->log("Override $filename in root");
         }
-        File::Slurp::write_file("$file", {binmode => ':raw'}, $content);
+        my $encoded_content = encode($self->_get_source_encoding(),
+                                     $content);
+        File::Slurp::write_file("$file", {binmode => ':raw'}, $encoded_content);
     }
     else {
-        die "Unknown location specified";
+        die "Unknown location specified: ". $self->location;
     }
-
     return;
 }
 
@@ -171,15 +157,45 @@ sub _file_from_filename {
     for my $file ($self->zilla->files->flatten) {
         return $file if $file->name eq $filename;
     }
-    return; # let moose throw exception if nothing found
+    return;               # let moose throw exception if nothing found
+}
+
+sub _source_file {
+    my ($self) = shift;
+    $self->_file_from_filename($self->source_filename);
+}
+
+sub _get_source_content {
+    my ($self) = shift;
+    $self->_source_file->content;
+}
+
+sub _get_source_pod {
+    my ($self) = shift;
+    my $mmcontent = $self->_get_source_content();
+
+    my $doc = PPI::Document->new(\$mmcontent);
+    my $pod_elems = $doc->find('PPI::Token::Pod');
+    my $pod_content = "";
+    if ($pod_elems) {
+        # Concatenation should stringify it
+        $pod_content .= PPI::Token::Pod->merge(@$pod_elems);
+    }
+
+    return $pod_content;
+}
+
+sub _get_source_encoding {
+    my ($self) = shift;
+    $self->_source_file->encoding;
 }
 
 
 sub get_readme_content {
     my ($self) = shift;
-    my $mmcontent = $self->_file_from_filename($self->source_filename)->content;
+    my $mmpod = $self->_get_source_pod();
     my $parser = $_types->{$self->type}->{parser};
-    my $readme_content = $parser->($mmcontent);
+    my $readme_content = $parser->($mmpod);
 }
 
 {
@@ -217,7 +233,7 @@ Dist::Zilla::Plugin::ReadmeAnyFromPod - Automatically convert POD to a README in
 
 =head1 VERSION
 
-version 0.131500
+version 0.132962
 
 =head1 SYNOPSIS
 
