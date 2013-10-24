@@ -3,7 +3,7 @@ NAME
     README in any format for Dist::Zilla
 
 VERSION
-    version 0.132962
+    version 0.132973
 
 SYNOPSIS
     In your dist.ini
@@ -35,6 +35,14 @@ DESCRIPTION
     and "In" are optional, and the whole name is case-insensitive. The
     SYNOPSIS section above gives one example.
 
+    When run with "location = dist", this plugin runs in the "FileMunger"
+    phase to create the new file. If it runs before another "FileMunger"
+    plugin does, that happens to modify the input pod (like, say,
+    "[PodWeaver]"), the README file contents will be recalculated, along
+    with a warning that you should modify your dist.ini by referencing
+    "[ReadmeAnyFromPod]" lower down in the file (the build still works, but
+    is less efficient).
+
 ATTRIBUTES
   type
     The file format for the readme. Supported types are "text", "markdown",
@@ -61,13 +69,22 @@ ATTRIBUTES
         built dist.
 
 METHODS
+  gather_files
+    We create the file early, so other plugins that need to have the full
+    list of files are aware of what we will be generating.
+
   prune_files
     Files with "location = root" must also be pruned, so that they don't
     sneak into the *next* build by virtue of already existing in the root
-    dir.
+    dir. (The alternative is that the user doesn't add them to the build in
+    the first place, with an option to their "GatherDir" plugin.)
 
-  setup_installer
-    Adds the requested README file to the dist.
+  munge_files
+  munge_file
+    Edits the content into the requested README file in the dist.
+
+  after_build
+    Create the requested README file in the root.
 
   get_readme_content
     Get the content of the README in the desired format.

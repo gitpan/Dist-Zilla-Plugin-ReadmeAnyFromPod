@@ -29,5 +29,6 @@ t/release-pod-syntax.t
 t/release-portability.t
 t/release-unused-vars.t
 t/rootprune.t
+t/too-soon.t
 t/utf8.t
 weaver.ini

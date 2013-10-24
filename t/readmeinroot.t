@@ -39,8 +39,8 @@ my %tests = (
     ],
     pod => [
         [ qr/^=head1\s+SYNOPSIS/m, "POD header" ],
-        [ qr/B<.*>/, "POD bold formatting" ],
-        [ qr/I<.*>/, "POD italic formatting" ],
+        [ qr/B<.*?>/, "POD bold formatting" ],
+        [ qr/I<.*?>/, "POD italic formatting" ],
     ],
     html => [
         [ qr/<html>/, "HTML code" ],
@@ -50,11 +50,12 @@ my %tests = (
     markdown => [
         [ qr/^# SYNOPSIS\s*$/m, "Markdown header" ],
         [ qr/__[^\s_]+__/, "Markdown bold formatting" ],
-        [ qr/[^_]_[^\s_]+_[^_]/, "Markdown italic formatting" ],
+        [ qr/(?<!_)_[^\s_]+_(?!_)/, "Markdown italic formatting" ],
     ],
     never => [
         [ qr/\r/, "Carriage return", ],
-    ]
+        [ qr/^__END__$/m, "Perl code __END__ marker", ],
+    ],
 );
 
 my @possible_types = keys %$Dist::Zilla::Plugin::ReadmeAnyFromPod::_types;
