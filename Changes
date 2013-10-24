@@ -1,5 +1,14 @@
 Revision history for Dist-Zilla-Plugin-ReadmeAnyFromPod
 
+0.132970  2013-10-24 12:11:46 America/Los_Angeles
+    - Module now works with both Dist::Zilla version 5.X and up (which
+      hanldes file encodings) and Dist::Zilla version 4.X and below
+      (with no special handling of file encodings at all). This is a
+      potential regression for users of Dist::Zilla 4.X, since
+      previously this module made some poor attempts at handling
+      encoding. If you need correct handling of file encodings, you
+      should upgrade Dist::Zilla to version 5.
+
 0.132973  2013-10-23 17:15:29 America/Los_Angeles
     - now using FileGatherer, FileMunger and AfterBuild phases rather than
       InstallerTool

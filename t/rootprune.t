@@ -7,7 +7,6 @@ use warnings;
 use autodie;
 use Test::DZil;
 
-use File::Slurp;
 use Dist::Zilla::Plugin::ReadmeAnyFromPod;
 
 my $tzil = Builder->from_config(

@@ -5,7 +5,6 @@ author:
 build_requires:
   Carp: 0
   Dist::Zilla::Role::PluginBundle::Easy: 0
-  File::Slurp: 0
   File::Spec: 0
   IO::Handle: 0
   IPC::Open3: 0
@@ -33,11 +32,11 @@ no_index:
     - corpus
 requires:
   Dist::Zilla::File::InMemory: 0
-  Dist::Zilla::Role::AfterBuild: 5
+  Dist::Zilla::Role::AfterBuild: 0
   Dist::Zilla::Role::File::ChangeNotification: 0
-  Dist::Zilla::Role::FileGatherer: 5
-  Dist::Zilla::Role::FileMunger: 5
-  Dist::Zilla::Role::FilePruner: 5
+  Dist::Zilla::Role::FileGatherer: 0
+  Dist::Zilla::Role::FileMunger: 0
+  Dist::Zilla::Role::FilePruner: 0
   Encode: 0
   IO::Handle: 0
   IO::Scalar: 0
@@ -59,4 +58,4 @@ requires:
 resources:
   homepage: https://github.com/DarwinAwardWinner/Dist-Zilla-Plugin-ReadmeAnyFromPod
   repository: https://github.com/DarwinAwardWinner/Dist-Zilla-Plugin-ReadmeAnyFromPod.git
-version: 0.132973
+version: 0.132970
