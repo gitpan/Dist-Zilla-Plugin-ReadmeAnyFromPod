@@ -1,5 +1,9 @@
 Revision history for Dist-Zilla-Plugin-ReadmeAnyFromPod
 
+0.133000  2013-10-27 14:12:47 America/Los_Angeles
+    - fix handling of case where readme contents are regenerated after the
+      source .pm is altered after we initially looked at it
+
 0.132970  2013-10-24 12:11:46 America/Los_Angeles
     - Module now works with both Dist::Zilla version 5.X and up (which
       hanldes file encodings) and Dist::Zilla version 4.X and below

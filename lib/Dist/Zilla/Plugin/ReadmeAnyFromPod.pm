@@ -3,7 +3,7 @@ use warnings;
 
 package Dist::Zilla::Plugin::ReadmeAnyFromPod;
 {
-  $Dist::Zilla::Plugin::ReadmeAnyFromPod::VERSION = '0.132970'; # TRIAL
+  $Dist::Zilla::Plugin::ReadmeAnyFromPod::VERSION = '0.133000'; # TRIAL
 }
 # ABSTRACT: Automatically convert POD to a README in any format for Dist::Zilla
 
@@ -175,7 +175,7 @@ sub munge_file {
             if ($newcontent ne $plugin->_last_source_content)
             {
                 $plugin->log('someone tried to munge ' . $source_file->name . ' after we read from it. Making modifications again...');
-                $plugin->munge_file($self);
+                $plugin->munge_file($file);
             }
         });
 
@@ -306,7 +306,7 @@ Dist::Zilla::Plugin::ReadmeAnyFromPod - Automatically convert POD to a README in
 
 =head1 VERSION
 
-version 0.132970
+version 0.133000
 
 =head1 SYNOPSIS
 
