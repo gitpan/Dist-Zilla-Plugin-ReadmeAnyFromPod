@@ -38,8 +38,8 @@ my %WriteMakefileArgs = (
     "PPI::Token::Pod" => 0,
     "Path::Tiny" => 0,
     "Pod::Markdown" => 0,
-    "Pod::Simple::HTML" => 0,
-    "Pod::Simple::Text" => 0,
+    "Pod::Simple::HTML" => "3.23",
+    "Pod::Simple::Text" => "3.23",
     "Scalar::Util" => 0,
     "strict" => 0,
     "warnings" => 0
@@ -60,7 +60,7 @@ my %WriteMakefileArgs = (
     "lib" => 0,
     "utf8" => 0
   },
-  "VERSION" => "0.133000",
+  "VERSION" => "0.133030",
   "test" => {
     "TESTS" => "t/*.t"
   }

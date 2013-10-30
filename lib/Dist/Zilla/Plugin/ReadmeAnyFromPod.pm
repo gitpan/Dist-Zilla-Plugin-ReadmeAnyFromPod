@@ -3,7 +3,7 @@ use warnings;
 
 package Dist::Zilla::Plugin::ReadmeAnyFromPod;
 {
-  $Dist::Zilla::Plugin::ReadmeAnyFromPod::VERSION = '0.133000'; # TRIAL
+  $Dist::Zilla::Plugin::ReadmeAnyFromPod::VERSION = '0.133030'; # TRIAL
 }
 # ABSTRACT: Automatically convert POD to a README in any format for Dist::Zilla
 
@@ -16,6 +16,8 @@ use Moose;
 use MooseX::Has::Sugar;
 use PPI::Document;
 use PPI::Token::Pod;
+use Pod::Simple::HTML 3.23;
+use Pod::Simple::Text 3.23;
 use Scalar::Util 'blessed';
 
 with 'Dist::Zilla::Role::AfterBuild';
@@ -36,7 +38,6 @@ our $_types = {
         parser => sub {
             my $pod = $_[0];
 
-            require Pod::Simple::Text;
             my $parser = Pod::Simple::Text->new;
             $parser->output_string( \my $content );
             $parser->parse_characters(1);
@@ -65,7 +66,6 @@ our $_types = {
         parser => sub {
             my $pod = $_[0];
 
-            require Pod::Simple::HTML;
             my $parser = Pod::Simple::HTML->new;
             $parser->output_string( \my $content );
             $parser->parse_characters(1);
@@ -306,7 +306,7 @@ Dist::Zilla::Plugin::ReadmeAnyFromPod - Automatically convert POD to a README in
 
 =head1 VERSION
 
-version 0.133000
+version 0.133030
 
 =head1 SYNOPSIS
 
