@@ -21,7 +21,7 @@ build_requires:
 configure_requires:
   ExtUtils::MakeMaker: 6.30
 dynamic_config: 0
-generated_by: 'Dist::Zilla version 4.300039, CPAN::Meta::Converter version 2.132661'
+generated_by: 'Dist::Zilla version 5.000, CPAN::Meta::Converter version 2.132830'
 license: perl
 meta-spec:
   url: http://module-build.sourceforge.net/META-spec-v1.4.html
@@ -55,4 +55,7 @@ requires:
   perl: 5.008
   strict: 0
   warnings: 0
-version: 0.133030
+resources:
+  homepage: https://github.com/DarwinAwardWinner/Dist-Zilla-Plugin-ReadmeAnyFromPod
+  repository: https://github.com/DarwinAwardWinner/Dist-Zilla-Plugin-ReadmeAnyFromPod.git
+version: 0.133060

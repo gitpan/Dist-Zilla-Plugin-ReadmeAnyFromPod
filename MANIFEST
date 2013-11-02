@@ -9,6 +9,9 @@ corpus/README
 corpus/dist/DZT/bin/sample
 corpus/dist/DZT/lib/DZT/Sample.pm
 corpus/dist/DZT/t/basic.t
+corpus/dist/DZT_Latin1/bin/sample
+corpus/dist/DZT_Latin1/lib/DZT/Sample.pm
+corpus/dist/DZT_Latin1/t/basic.t
 dist.ini
 lib/Dist/Zilla/Plugin/ReadmeAnyFromPod.pm
 t/00-compile.t
@@ -17,6 +20,7 @@ t/000-report-versions.t
 t/author-critic.t
 t/basic.t
 t/insidebundle.t
+t/latin1.t
 t/lib/Dist/Zilla/PluginBundle/ReadmeAnyFromPod.pm
 t/multi-readme.t
 t/otherpath.t

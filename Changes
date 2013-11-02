@@ -1,10 +1,13 @@
 Revision history for Dist-Zilla-Plugin-ReadmeAnyFromPod
 
+0.133060  2013-11-02 16:56:50 America/Los_Angeles
+    - Add a test for non-utf8 encoded input.
+
 0.133030  2013-10-30 00:53:24 America/Los_Angeles
     - Require Pod::Simple version 3.23 for parse_characters
 
 0.133000  2013-10-27 14:12:47 America/Los_Angeles
-    - fix handling of case where readme contents are regenerated after the
+    - Fix handling of case where readme contents are regenerated after the
       source .pm is altered after we initially looked at it
 
 0.132970  2013-10-24 12:11:46 America/Los_Angeles
