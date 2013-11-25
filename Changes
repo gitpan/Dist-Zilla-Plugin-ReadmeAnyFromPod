@@ -1,5 +1,8 @@
 Revision history for Dist-Zilla-Plugin-ReadmeAnyFromPod
 
+0.133290  2013-11-24 22:12:39 America/Los_Angeles
+    - First real release compatible with dzil v5
+
 0.133060  2013-11-02 16:56:50 America/Los_Angeles
     - Add a test for non-utf8 encoded input.
 
