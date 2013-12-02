@@ -36,7 +36,7 @@ my %WriteMakefileArgs = (
     "MooseX::Has::Sugar" => 0,
     "PPI::Document" => 0,
     "PPI::Token::Pod" => 0,
-    "Path::Tiny" => 0,
+    "Path::Tiny" => "0.004",
     "Pod::Markdown" => 0,
     "Pod::Simple::HTML" => "3.23",
     "Pod::Simple::Text" => "3.23",
@@ -60,7 +60,7 @@ my %WriteMakefileArgs = (
     "lib" => 0,
     "utf8" => 0
   },
-  "VERSION" => "0.133290",
+  "VERSION" => "0.133360",
   "test" => {
     "TESTS" => "t/*.t"
   }
@@ -88,7 +88,7 @@ my %FallbackPrereqs = (
   "MooseX::Has::Sugar" => 0,
   "PPI::Document" => 0,
   "PPI::Token::Pod" => 0,
-  "Path::Tiny" => 0,
+  "Path::Tiny" => "0.004",
   "Pod::Markdown" => 0,
   "Pod::Simple::HTML" => "3.23",
   "Pod::Simple::Text" => "3.23",
