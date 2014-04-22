@@ -1,5 +1,8 @@
 Revision history for Dist-Zilla-Plugin-ReadmeAnyFromPod
 
+0.141120  2014-04-22 15:35:30 America/Los_Angeles
+    - Adjust tests for change in Pod::Markdown output
+
 0.133360  2013-12-02 01:09:18 America/Los_Angeles
     - Require the appropriate version of Path::Tiny
 

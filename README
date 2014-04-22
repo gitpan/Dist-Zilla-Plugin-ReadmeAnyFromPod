@@ -3,7 +3,7 @@ NAME
     README in any format for Dist::Zilla
 
 VERSION
-    version 0.133360
+    version 0.141120
 
 SYNOPSIS
     In your dist.ini
@@ -89,6 +89,10 @@ METHODS
   get_readme_content
     Get the content of the README in the desired format.
 
+ACKNOWLEDGMENTS
+    Thanks to Karen Etheridge (ETHER) for helping me maintain this module
+    and keep it working through breaking changes in its dependencies.
+
 BUGS AND LIMITATIONS
     Please report any bugs or feature requests to
     "rct+perlbug@thompsonclan.org".
@@ -110,7 +114,7 @@ AUTHOR
     Ryan C. Thompson <rct@thompsonclan.org>
 
 COPYRIGHT AND LICENSE
-    This software is copyright (c) 2013 by Ryan C. Thompson.
+    This software is copyright (c) 2014 by Ryan C. Thompson.
 
     This is free software; you can redistribute it and/or modify it under
     the same terms as the Perl 5 programming language system itself.

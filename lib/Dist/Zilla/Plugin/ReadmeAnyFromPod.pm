@@ -3,7 +3,7 @@ use warnings;
 
 package Dist::Zilla::Plugin::ReadmeAnyFromPod;
 {
-  $Dist::Zilla::Plugin::ReadmeAnyFromPod::VERSION = '0.133360';
+  $Dist::Zilla::Plugin::ReadmeAnyFromPod::VERSION = '0.141120';
 }
 # ABSTRACT: Automatically convert POD to a README in any format for Dist::Zilla
 
@@ -306,7 +306,7 @@ Dist::Zilla::Plugin::ReadmeAnyFromPod - Automatically convert POD to a README in
 
 =head1 VERSION
 
-version 0.133360
+version 0.141120
 
 =head1 SYNOPSIS
 
@@ -411,6 +411,11 @@ Create the requested README file in the root.
 
 Get the content of the README in the desired format.
 
+=head1 ACKNOWLEDGMENTS
+
+Thanks to Karen Etheridge (ETHER) for helping me maintain this module
+and keep it working through breaking changes in its dependencies.
+
 =head1 BUGS AND LIMITATIONS
 
 Please report any bugs or feature requests to
@@ -444,7 +449,7 @@ Ryan C. Thompson <rct@thompsonclan.org>
 
 =head1 COPYRIGHT AND LICENSE
 
-This software is copyright (c) 2013 by Ryan C. Thompson.
+This software is copyright (c) 2014 by Ryan C. Thompson.
 
 This is free software; you can redistribute it and/or modify it under
 the same terms as the Perl 5 programming language system itself.
