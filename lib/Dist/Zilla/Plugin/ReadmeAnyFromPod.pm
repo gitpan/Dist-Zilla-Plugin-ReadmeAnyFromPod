@@ -2,11 +2,8 @@ use strict;
 use warnings;
 
 package Dist::Zilla::Plugin::ReadmeAnyFromPod;
-{
-  $Dist::Zilla::Plugin::ReadmeAnyFromPod::VERSION = '0.141120';
-}
 # ABSTRACT: Automatically convert POD to a README in any format for Dist::Zilla
-
+$Dist::Zilla::Plugin::ReadmeAnyFromPod::VERSION = '0.141760';
 use Encode qw( encode );
 use IO::Handle;
 use List::Util qw( reduce );
@@ -14,11 +11,7 @@ use Moose::Autobox;
 use Moose::Util::TypeConstraints qw(enum);
 use Moose;
 use MooseX::Has::Sugar;
-use PPI::Document;
-use PPI::Token::Pod;
 use Path::Tiny 0.004;
-use Pod::Simple::HTML 3.23;
-use Pod::Simple::Text 3.23;
 use Scalar::Util 'blessed';
 
 with 'Dist::Zilla::Role::AfterBuild';
@@ -39,6 +32,8 @@ our $_types = {
         parser => sub {
             my $pod = $_[0];
 
+            require Pod::Simple::Text;
+            Pod::Simple::Text->VERSION('3.23');
             my $parser = Pod::Simple::Text->new;
             $parser->output_string( \my $content );
             $parser->parse_characters(1);
@@ -67,6 +62,8 @@ our $_types = {
         parser => sub {
             my $pod = $_[0];
 
+            require Pod::Simple::HTML;
+            Pod::Simple::HTML->VERSION('3.23');
             my $parser = Pod::Simple::HTML->new;
             $parser->output_string( \my $content );
             $parser->parse_characters(1);
@@ -243,6 +240,8 @@ sub _get_source_pod {
     my ($self) = shift;
     my $source_content = $self->_get_source_content();
 
+    require PPI::Document;
+
     my $doc = PPI::Document->new(\$source_content);
     my $pod_elems = $doc->find('PPI::Token::Pod');
     my $pod_content = "";
@@ -306,7 +305,7 @@ Dist::Zilla::Plugin::ReadmeAnyFromPod - Automatically convert POD to a README in
 
 =head1 VERSION
 
-version 0.141120
+version 0.141760
 
 =head1 SYNOPSIS
 
@@ -382,6 +381,12 @@ contains F<dist.ini>). The README will not be incorporated into the
 built dist.
 
 =back
+
+If you want to generate the same README file in both the build
+directory and the root directory, simply generate it in the build
+directory and use the
+L<C<[CopyFilesFromBuild]>|Dist::Zilla::Plugin::CopyFilesFromBuild>
+plugin to copy it to the dist root.
 
 =head1 METHODS
 

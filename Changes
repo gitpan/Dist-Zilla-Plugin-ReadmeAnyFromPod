@@ -1,5 +1,10 @@
 Revision history for Dist-Zilla-Plugin-ReadmeAnyFromPod
 
+0.141760  2014-06-25 01:13:06PDT-0700 America/Los_Angeles
+    - Load some modules dynamically only when they are used
+    - Eliminate implicit dependency on specific version of Path::Class
+    - Minor documentation updates
+
 0.141120  2014-04-22 15:35:30 America/Los_Angeles
     - Adjust tests for change in Pod::Markdown output
 

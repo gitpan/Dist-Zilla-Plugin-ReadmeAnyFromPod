@@ -3,7 +3,7 @@ NAME
     README in any format for Dist::Zilla
 
 VERSION
-    version 0.141120
+    version 0.141760
 
 SYNOPSIS
     In your dist.ini
@@ -67,6 +67,10 @@ ATTRIBUTES
         This puts the README in the root directory (the same directory that
         contains dist.ini). The README will not be incorporated into the
         built dist.
+
+    If you want to generate the same README file in both the build directory
+    and the root directory, simply generate it in the build directory and
+    use the "[CopyFilesFromBuild]" plugin to copy it to the dist root.
 
 METHODS
   gather_files

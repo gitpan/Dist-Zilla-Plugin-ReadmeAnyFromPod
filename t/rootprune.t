@@ -6,6 +6,7 @@ use warnings;
 
 use autodie;
 use Test::DZil;
+use Path::Tiny 0.004;
 
 use Dist::Zilla::Plugin::ReadmeAnyFromPod;
 
@@ -27,13 +28,13 @@ my $tzil = Builder->from_config(
 
 # Artificially create README.mkdn and README in root. (Ordinarily this
 # file would be created by a previous build.)
-$tzil->tempdir->file("source/README.mkdn")->spew(<<EOF);
+Path::Tiny::path($tzil->tempdir->file("source/README.mkdn"))->spew(<<EOF);
 # Placeholder README content
 
 This is the content of the README.mkdn file.
 EOF
 
-$tzil->tempdir->file("source/README")->spew(<<EOF);
+Path::Tiny::path($tzil->tempdir->file("source/README"))->spew(<<EOF);
 Placeholder README content
 
 This is the content of the README file.
