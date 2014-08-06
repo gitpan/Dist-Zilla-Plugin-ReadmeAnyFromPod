@@ -3,7 +3,7 @@ use warnings;
 
 package Dist::Zilla::Plugin::ReadmeAnyFromPod;
 # ABSTRACT: Automatically convert POD to a README in any format for Dist::Zilla
-$Dist::Zilla::Plugin::ReadmeAnyFromPod::VERSION = '0.142180'; # TRIAL
+$Dist::Zilla::Plugin::ReadmeAnyFromPod::VERSION = '0.142180';
 use Encode qw( encode );
 use IO::Handle;
 use List::Util qw( reduce );
@@ -115,6 +115,9 @@ sub BUILD {
 
     $self->log_fatal('You cannot use location=build with phase=release!')
         if $self->location eq 'build' and $self->phase eq 'release';
+
+    $self->log('You are creating a .pod directly in the build - be aware that this will be installed like a .pm file and as a manpage')
+        if $self->location eq 'build' and $self->type eq 'pod';
 }
 
 
@@ -379,13 +382,15 @@ build still works, but is less efficient).
 
 =head2 type
 
-The file format for the readme. Supported types are "text", "markdown", "pod", and "html".
-Note that you are not advised to create a F<.pod> file in the dist itself, as
-L<ExtUtils::MakeMaker> will install that, both into C<PERL5LIB> and C<MAN3DIR>.
+The file format for the readme. Supported types are "text",
+"markdown", "pod", and "html".  Note that you are not advised to
+create a F<.pod> file in the dist itself, as L<ExtUtils::MakeMaker>
+will install that, both into C<PERL5LIB> and C<MAN3DIR>.
 
 =head2 filename
 
-The file name of the README file to produce. The default depends on the selected format.
+The file name of the README file to produce. The default depends on
+the selected format.
 
 =head2 source_filename
 
@@ -425,13 +430,16 @@ At what phase to generate the README file. Choices are:
 
 =item build
 
-(Default) This generates the README at 'after build' time.
+(Default) This generates the README at 'after build' time. A new
+README will be generated each time you build the dist.
 
 =item release
 
-This generates the README at 'after release' time. Note that this is too late
-to get the file into the generated tarball (C<location = build>), but ideal if
-you are using C<location = root>.
+This generates the README at 'after release' time. Note that this is
+too late to get the file into the generated tarball, and is therefore
+incompatible with C<location = build>. However, this is ideal if you
+are using C<location = root> and only want to update the README upon
+each release of your module.
 
 =back
 

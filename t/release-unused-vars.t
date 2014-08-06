@@ -8,15 +8,9 @@ BEGIN {
 }
 
 
-use Test::More 0.96 tests => 1;
-eval { require Test::Vars };
+use Test::More;
 
-SKIP: {
-    skip 1 => 'Test::Vars required for testing for unused vars'
-        if $@;
-    Test::Vars->import;
-
-    subtest 'unused vars' => sub {
+eval "use Test::Vars";
+plan skip_all => "Test::Vars required for testing unused vars"
+  if $@;
 all_vars_ok();
-    };
-};
