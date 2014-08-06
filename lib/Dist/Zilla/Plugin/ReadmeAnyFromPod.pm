@@ -3,7 +3,7 @@ use warnings;
 
 package Dist::Zilla::Plugin::ReadmeAnyFromPod;
 # ABSTRACT: Automatically convert POD to a README in any format for Dist::Zilla
-$Dist::Zilla::Plugin::ReadmeAnyFromPod::VERSION = '0.141760';
+$Dist::Zilla::Plugin::ReadmeAnyFromPod::VERSION = '0.142180'; # TRIAL
 use Encode qw( encode );
 use IO::Handle;
 use List::Util qw( reduce );
@@ -15,6 +15,7 @@ use Path::Tiny 0.004;
 use Scalar::Util 'blessed';
 
 with 'Dist::Zilla::Role::AfterBuild';
+with 'Dist::Zilla::Role::AfterRelease';
 with 'Dist::Zilla::Role::FileGatherer';
 with 'Dist::Zilla::Role::FileMunger';
 with 'Dist::Zilla::Role::FilePruner';
@@ -102,6 +103,21 @@ has location => (
 );
 
 
+has phase => (
+    ro, lazy,
+    isa => enum([qw(build release)]),
+    default => 'build',
+);
+
+
+sub BUILD {
+    my $self = shift;
+
+    $self->log_fatal('You cannot use location=build with phase=release!')
+        if $self->location eq 'build' and $self->phase eq 'release';
+}
+
+
 sub gather_files {
     my ($self) = @_;
 
@@ -187,6 +203,17 @@ sub munge_file {
 
 
 sub after_build {
+    my $self = shift;
+    $self->_create_readme if $self->phase eq 'build';
+}
+
+
+sub after_release {
+    my $self = shift;
+    $self->_create_readme if $self->phase eq 'release';
+}
+
+sub _create_readme {
     my $self = shift;
 
     if ( $self->location eq 'root' ) {
@@ -305,7 +332,7 @@ Dist::Zilla::Plugin::ReadmeAnyFromPod - Automatically convert POD to a README in
 
 =head1 VERSION
 
-version 0.141760
+version 0.142180
 
 =head1 SYNOPSIS
 
@@ -353,6 +380,8 @@ build still works, but is less efficient).
 =head2 type
 
 The file format for the readme. Supported types are "text", "markdown", "pod", and "html".
+Note that you are not advised to create a F<.pod> file in the dist itself, as
+L<ExtUtils::MakeMaker> will install that, both into C<PERL5LIB> and C<MAN3DIR>.
 
 =head2 filename
 
@@ -388,6 +417,24 @@ directory and use the
 L<C<[CopyFilesFromBuild]>|Dist::Zilla::Plugin::CopyFilesFromBuild>
 plugin to copy it to the dist root.
 
+=head2 phase
+
+At what phase to generate the README file. Choices are:
+
+=over 4
+
+=item build
+
+(Default) This generates the README at 'after build' time.
+
+=item release
+
+This generates the README at 'after release' time. Note that this is too late
+to get the file into the generated tarball (C<location = build>), but ideal if
+you are using C<location = root>.
+
+=back
+
 =head1 METHODS
 
 =head2 gather_files
@@ -410,11 +457,17 @@ Edits the content into the requested README file in the dist.
 
 =head2 after_build
 
-Create the requested README file in the root.
+Create the requested README file at build time, if requested.
+
+=head2 after_release
+
+Create the requested README file at release time, if requested.
 
 =head2 get_readme_content
 
 Get the content of the README in the desired format.
+
+=for Pod::Coverage BUILD
 
 =head1 ACKNOWLEDGMENTS
 

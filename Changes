@@ -1,5 +1,9 @@
 Revision history for Dist-Zilla-Plugin-ReadmeAnyFromPod
 
+0.142180  2014-08-05 20:55:45-07:00 America/Vancouver (TRIAL RELEASE)   - UNAUTHORIZED RELEASE
+    - add "phase" option, for the ability to generate the README file at
+      release time instead of build time (Karen Etheridge)
+
 0.141760  2014-06-25 01:13:06PDT-0700 America/Los_Angeles
     - Load some modules dynamically only when they are used
     - Eliminate implicit dependency on specific version of Path::Class
