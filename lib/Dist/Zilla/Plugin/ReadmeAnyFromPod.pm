@@ -3,7 +3,7 @@ use warnings;
 
 package Dist::Zilla::Plugin::ReadmeAnyFromPod;
 # ABSTRACT: Automatically convert POD to a README in any format for Dist::Zilla
-$Dist::Zilla::Plugin::ReadmeAnyFromPod::VERSION = '0.142180';
+$Dist::Zilla::Plugin::ReadmeAnyFromPod::VERSION = '0.142250';
 use Encode qw( encode );
 use IO::Handle;
 use List::Util qw( reduce );
@@ -167,7 +167,14 @@ sub munge_files {
     if ( $self->location eq 'build' ) {
         my $filename = $self->filename;
         my $file = $self->zilla->files->grep( sub { $_->name eq $filename } )->head;
-        $self->munge_file($file);
+        if ($file) {
+            $self->munge_file($file);
+        }
+        else {
+            $self->log_fatal(
+                      "Could not find a $filename file during the build"
+                    . ' - did you prune it away with a PruneFiles block?' );
+        }
     }
     return;
 }
@@ -335,7 +342,7 @@ Dist::Zilla::Plugin::ReadmeAnyFromPod - Automatically convert POD to a README in
 
 =head1 VERSION
 
-version 0.142180
+version 0.142250
 
 =head1 SYNOPSIS
 
