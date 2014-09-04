@@ -1,5 +1,11 @@
 Revision history for Dist-Zilla-Plugin-ReadmeAnyFromPod
 
+0.142470  2014-09-04 16:14:01PDT-0700 America/Los_Angeles
+    - Use main module pod file by default if available. If your main
+      module has its POD in a separate file with the same basename and
+      ".pod" extension, then that file will be used automatically as
+      the default.
+
 0.142250  2014-08-13 08:34:36PDT-0700 America/Los_Angeles
     - If you pruned away the README(.*) file before it could be populated with
       content, you'd get a fatal error like " Can't call method "name" on an

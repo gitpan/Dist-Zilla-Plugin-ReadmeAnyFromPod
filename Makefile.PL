@@ -11,7 +11,7 @@ use ExtUtils::MakeMaker ;
 
 my %WriteMakefileArgs = (
   "ABSTRACT" => "Automatically convert POD to a README in any format for Dist::Zilla",
-  "AUTHOR" => "Ryan C. Thompson <rct\@thompsonclan.org>",
+  "AUTHOR" => "Ryan C. Thompson <rct\@thompsonclan.org>, Karen Etheridge <ether\@cpan.org>",
   "CONFIGURE_REQUIRES" => {
     "ExtUtils::MakeMaker" => 0
   },
@@ -23,10 +23,10 @@ my %WriteMakefileArgs = (
     "Dist::Zilla::File::InMemory" => 0,
     "Dist::Zilla::Role::AfterBuild" => 0,
     "Dist::Zilla::Role::AfterRelease" => 0,
-    "Dist::Zilla::Role::File::ChangeNotification" => 0,
     "Dist::Zilla::Role::FileGatherer" => 0,
     "Dist::Zilla::Role::FileMunger" => 0,
     "Dist::Zilla::Role::FilePruner" => 0,
+    "Dist::Zilla::Role::FileWatcher" => 0,
     "Encode" => 0,
     "IO::Handle" => 0,
     "IO::Scalar" => 0,
@@ -60,7 +60,7 @@ my %WriteMakefileArgs = (
     "lib" => 0,
     "utf8" => 0
   },
-  "VERSION" => "0.142250",
+  "VERSION" => "0.142470",
   "test" => {
     "TESTS" => "t/*.t"
   }
@@ -72,10 +72,10 @@ my %FallbackPrereqs = (
   "Dist::Zilla::File::InMemory" => 0,
   "Dist::Zilla::Role::AfterBuild" => 0,
   "Dist::Zilla::Role::AfterRelease" => 0,
-  "Dist::Zilla::Role::File::ChangeNotification" => 0,
   "Dist::Zilla::Role::FileGatherer" => 0,
   "Dist::Zilla::Role::FileMunger" => 0,
   "Dist::Zilla::Role::FilePruner" => 0,
+  "Dist::Zilla::Role::FileWatcher" => 0,
   "Dist::Zilla::Role::PluginBundle::Easy" => 0,
   "Encode" => 0,
   "File::Spec" => 0,

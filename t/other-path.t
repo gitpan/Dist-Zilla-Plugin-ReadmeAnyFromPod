@@ -30,7 +30,8 @@ my $built = lives_ok { $tzil->build; } "Built dist successfully";
 
 if ($built) {
   my $content = $tzil->slurp_file("build/README");
-  like($content, qr/script/, "README contents are derived from 'bin/sample' instead of default.");
+  print "$content\n";
+  like($content, qr/\bscript\b/, "README contents are derived from 'bin/sample' instead of default.");
 }
 else {
   skip "Building dist failed", 1;

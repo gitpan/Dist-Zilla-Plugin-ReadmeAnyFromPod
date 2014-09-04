@@ -2,6 +2,7 @@
 abstract: 'Automatically convert POD to a README in any format for Dist::Zilla'
 author:
   - 'Ryan C. Thompson <rct@thompsonclan.org>'
+  - 'Karen Etheridge <ether@cpan.org>'
 build_requires:
   Carp: 0
   Dist::Zilla::Role::PluginBundle::Easy: 0
@@ -34,10 +35,10 @@ requires:
   Dist::Zilla::File::InMemory: 0
   Dist::Zilla::Role::AfterBuild: 0
   Dist::Zilla::Role::AfterRelease: 0
-  Dist::Zilla::Role::File::ChangeNotification: 0
   Dist::Zilla::Role::FileGatherer: 0
   Dist::Zilla::Role::FileMunger: 0
   Dist::Zilla::Role::FilePruner: 0
+  Dist::Zilla::Role::FileWatcher: 0
   Encode: 0
   IO::Handle: 0
   IO::Scalar: 0
@@ -58,4 +59,4 @@ requires:
 resources:
   homepage: https://github.com/DarwinAwardWinner/Dist-Zilla-Plugin-ReadmeAnyFromPod
   repository: https://github.com/DarwinAwardWinner/Dist-Zilla-Plugin-ReadmeAnyFromPod.git
-version: 0.142250
+version: 0.142470

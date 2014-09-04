@@ -5,7 +5,7 @@ NAME
 
 VERSION
 
-    version 0.142250
+    version 0.142470
 
 SYNOPSIS
 
@@ -64,7 +64,9 @@ ATTRIBUTES
  source_filename
 
     The file from which to extract POD for the content of the README. The
-    default is the file of the main module of the dist.
+    default is the file of the main module of the dist. If the main module
+    has a companion ".pod" file with the same basename, that is used as the
+    default instead.
 
  location
 
@@ -135,11 +137,6 @@ METHODS
 
     Get the content of the README in the desired format.
 
-ACKNOWLEDGMENTS
-
-    Thanks to Karen Etheridge (ETHER) for helping me maintain this module
-    and keep it working through breaking changes in its dependencies.
-
 BUGS AND LIMITATIONS
 
     Please report any bugs or feature requests to
@@ -160,9 +157,11 @@ INSTALLATION
     See perlmodinstall for information and options on installing Perl
     modules.
 
-AUTHOR
+AUTHORS
 
-    Ryan C. Thompson <rct@thompsonclan.org>
+      * Ryan C. Thompson <rct@thompsonclan.org>
+
+      * Karen Etheridge <ether@cpan.org>
 
 COPYRIGHT AND LICENSE
 

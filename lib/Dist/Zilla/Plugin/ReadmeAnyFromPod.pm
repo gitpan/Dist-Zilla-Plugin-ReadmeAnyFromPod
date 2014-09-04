@@ -3,7 +3,7 @@ use warnings;
 
 package Dist::Zilla::Plugin::ReadmeAnyFromPod;
 # ABSTRACT: Automatically convert POD to a README in any format for Dist::Zilla
-$Dist::Zilla::Plugin::ReadmeAnyFromPod::VERSION = '0.142250';
+$Dist::Zilla::Plugin::ReadmeAnyFromPod::VERSION = '0.142470';
 use Encode qw( encode );
 use IO::Handle;
 use List::Util qw( reduce );
@@ -19,6 +19,7 @@ with 'Dist::Zilla::Role::AfterRelease';
 with 'Dist::Zilla::Role::FileGatherer';
 with 'Dist::Zilla::Role::FileMunger';
 with 'Dist::Zilla::Role::FilePruner';
+with 'Dist::Zilla::Role::FileWatcher';
 
 # TODO: Should these be separate modules?
 our $_types = {
@@ -92,8 +93,15 @@ has filename => (
 has source_filename => (
     ro, lazy,
     isa => 'Str',
-    default => sub { shift->zilla->main_module->name; },
+    builder => '_build_source_filename',
 );
+
+sub _build_source_filename {
+    my $self = shift;
+    my $pm = $self->zilla->main_module->name;
+    (my $pod = $pm) =~ s/\.pm$/\.pod/;
+    return -e $pod ? $pod : $pm;
+}
 
 
 has location => (
@@ -180,34 +188,23 @@ sub munge_files {
 }
 
 
+my %watching;
 sub munge_file {
-    my ($self, $file) = @_;
+    my ($self, $target_file) = @_;
 
     # Ensure that we repeat the munging if the source file is modified
     # after we run.
     my $source_file = $self->_source_file();
-    if (not $source_file->does('Dist::Zilla::Role::File::ChangeNotification'))
-    {
-        require Dist::Zilla::Role::File::ChangeNotification;
-        Dist::Zilla::Role::File::ChangeNotification->meta->apply($source_file);
-        my $plugin = $self;
-        $source_file->on_changed(sub {
-            my ($self, $newcontent) = @_;
+    $self->watch_file($source_file, sub {
+        my ($self, $watched_file) = @_;
 
-            # If the new content is actually different, recalculate
-            # the content based on the updates.
-            if ($newcontent ne $plugin->_last_source_content)
-            {
-                $plugin->log('someone tried to munge ' . $source_file->name . ' after we read from it. Making modifications again...');
-                $plugin->munge_file($file);
-            }
-        });
+        # recalculate the content based on the updates
+        $self->log('someone tried to munge ' . $watched_file->name . ' after we read from it. Making modifications again...');
+        $self->munge_file($target_file);
+    }) if not $watching{$source_file->name}++;
 
-        $source_file->watch_file;
-    }
-
-    $self->log_debug([ 'ReadmeAnyFromPod updating contents of %s in dist', $file->name ]);
-    $file->content($self->get_readme_content);
+    $self->log_debug([ 'ReadmeAnyFromPod updating contents of %s in dist', $target_file->name ]);
+    $target_file->content($self->get_readme_content);
     return;
 }
 
@@ -342,7 +339,7 @@ Dist::Zilla::Plugin::ReadmeAnyFromPod - Automatically convert POD to a README in
 
 =head1 VERSION
 
-version 0.142250
+version 0.142470
 
 =head1 SYNOPSIS
 
@@ -401,8 +398,10 @@ the selected format.
 
 =head2 source_filename
 
-The file from which to extract POD for the content of the README.
-The default is the file of the main module of the dist.
+The file from which to extract POD for the content of the README. The
+default is the file of the main module of the dist. If the main module
+has a companion ".pod" file with the same basename, that is used as
+the default instead.
 
 =head2 location
 
@@ -484,11 +483,6 @@ Get the content of the README in the desired format.
 
 =for Pod::Coverage BUILD
 
-=head1 ACKNOWLEDGMENTS
-
-Thanks to Karen Etheridge (ETHER) for helping me maintain this module
-and keep it working through breaking changes in its dependencies.
-
 =head1 BUGS AND LIMITATIONS
 
 Please report any bugs or feature requests to
@@ -516,9 +510,19 @@ L<Dist::Zilla::Plugin::CopyReadmeFromBuild> - Functionality partly subsumed by t
 
 See perlmodinstall for information and options on installing Perl modules.
 
-=head1 AUTHOR
+=head1 AUTHORS
+
+=over 4
+
+=item *
 
 Ryan C. Thompson <rct@thompsonclan.org>
+
+=item *
+
+Karen Etheridge <ether@cpan.org>
+
+=back
 
 =head1 COPYRIGHT AND LICENSE
 
